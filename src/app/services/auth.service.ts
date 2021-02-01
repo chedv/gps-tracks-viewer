@@ -10,21 +10,22 @@ import { Response } from '../models/response.model';
 @Injectable({providedIn: 'root'})
 export class AuthService {
   private token: string | null;
-  private url = environment.backend_url;
 
   constructor(private http: HttpClient) {
     this.token = localStorage.getItem('userToken');
   }
 
-  register(email: string, password: string): void {
-    this.http.post(`${this.url}/register`, {email, password})
-      .subscribe(response => {
-        console.log(response);
-      });
+  register(params: object): Observable<Response> {
+    console.log(this.http);
+    return this.http.post<any>(`${environment.api}/register`, params)
+      .pipe(map(response => {
+        return {error: false, message: response};
+      })
+    );
   }
 
-  login(email: string, password: string): Observable<Response> {
-    return this.http.post<any>(`${this.url}/login`, {email, password})
+  login(params: object): Observable<Response> {
+    return this.http.post<any>(`${environment.api}/login`, params)
       .pipe(map(response => {
           if ('token' in response) {
             this.token = response.token;
@@ -40,7 +41,7 @@ export class AuthService {
   }
 
   logout(): void {
-    this.http.post(`${this.url}/logout`, {})
+    this.http.post(`${environment.api}/logout`, {})
       .subscribe(response => {
         localStorage.removeItem('userToken');
         this.token = null;

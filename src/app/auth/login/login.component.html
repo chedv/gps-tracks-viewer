@@ -1,4 +1,4 @@
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+<form [formGroup]="form" (ngSubmit)="onSubmit('login')" novalidate>
   <div class="form-group">
     <label>Email:</label>
     <input class="form-control" type="email" formControlName="email"/>
@@ -14,7 +14,7 @@
     </div>
   </div>
   <div class="form-group">
-    <button [disabled]="loginForm.invalid">Login</button>
+    <button [disabled]="form.invalid">Login</button>
   </div>
   <div *ngIf="errors">{{ errors }}</div>
 </form>
