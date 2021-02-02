@@ -1,4 +1,4 @@
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate>
+<form [formGroup]="form" (ngSubmit)="onSubmit('register')" novalidate>
   <div class="form-group">
     <label>Email:</label>
     <input class="form-control" type="email" formControlName="email"/>
@@ -35,6 +35,6 @@
     </div>
   </div>
   <div class="form-group">
-    <button type="submit" [disabled]="registerForm.invalid">Register</button>
+    <button type="submit" [disabled]="form.invalid">Register</button>
   </div>
 </form>
