@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { AuthService } from './services/auth.service';
 
 @Component({
@@ -9,9 +11,18 @@ import { AuthService } from './services/auth.service';
 export class AppComponent {
   title = 'gps-tracks-viewer';
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   isAuthenticated(): boolean {
     return this.authService.isAuthenticated();
+  }
+
+  logout(): void {
+    this.authService.logout()
+      .subscribe(response => {
+        if (!response.error) {
+          this.router.navigate(['']);
+        }
+      });
   }
 }

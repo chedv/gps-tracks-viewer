@@ -1,7 +1,7 @@
 <div>
   <a *ngIf="!isAuthenticated()" routerLink="/auth/login">Login</a>
   <a *ngIf="!isAuthenticated()" routerLink="/auth/register">Register</a>
-  <a *ngIf="isAuthenticated()" routerLink="/auth/logout">Logout</a>
+  <a *ngIf="isAuthenticated()" routerLink="" (click)="logout()">Logout</a>
   <a *ngIf="isAuthenticated()" routerLink="/devices">Devices</a>
 </div>
 <router-outlet></router-outlet>

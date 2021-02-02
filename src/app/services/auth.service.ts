@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
@@ -16,10 +16,14 @@ export class AuthService {
   }
 
   register(params: object): Observable<Response> {
-    console.log(this.http);
     return this.http.post<any>(`${environment.api}/register`, params)
       .pipe(map(response => {
-        return {error: false, message: response};
+        if ('email' in response) {
+          return {error: false, message: ''};
+        }
+        else {
+          return {error: true, message: response};
+        }
       })
     );
   }
@@ -40,12 +44,17 @@ export class AuthService {
       );
   }
 
-  logout(): void {
-    this.http.post(`${environment.api}/logout`, {})
-      .subscribe(response => {
-        localStorage.removeItem('userToken');
-        this.token = null;
-      });
+  logout(): Observable<Response> {
+    const headers = new HttpHeaders({Authorization: `Token ${this.token}`});
+
+    return this.http.post<any>(`${environment.api}/logout`, {}, {headers})
+      .pipe(map(response => {
+          this.token = null;
+          localStorage.removeItem('userToken');
+
+          return {error: false, message: ''};
+        })
+      );
   }
 
   isAuthenticated(): boolean {
