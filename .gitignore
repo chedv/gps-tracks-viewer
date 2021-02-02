@@ -47,3 +47,7 @@ Thumbs.db
 
 # configurations
 proxy.conf.json
+
+# python
+__pycache__/
+integration_tests/__pycache__/
