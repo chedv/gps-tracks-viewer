@@ -13,7 +13,7 @@ export class BaseAuthComponent {
 
   constructor(formsBuilder: IAuthFormsBuilder,
               authService: AuthService,
-              private router: Router)
+              protected router: Router)
   {
     this.form = formsBuilder.buildForm();
     this.errors = null;

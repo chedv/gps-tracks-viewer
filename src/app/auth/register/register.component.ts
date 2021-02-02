@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Inject } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { BaseAuthComponent } from '../base-auth.component';
@@ -9,13 +8,12 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css'],
-  providers: [AuthService]
+  styleUrls: ['./register.component.css']
 })
 export class RegisterComponent extends BaseAuthComponent {
   constructor(private formsBuilder: RegisterFormBuilder,
-              @Inject(AuthService) authService: AuthService,
-              @Inject(Router) router: Router)
+              protected authService: AuthService,
+              protected router: Router)
   {
     super(formsBuilder, authService, router);
   }

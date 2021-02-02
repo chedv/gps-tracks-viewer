@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Inject } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { BaseAuthComponent } from '../base-auth.component';
@@ -9,13 +8,12 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
-  providers: [AuthService]
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent extends BaseAuthComponent {
   constructor(private formsBuilder: LoginFormBuilder,
-              @Inject(AuthService) authService: AuthService,
-              @Inject(Router) router: Router)
+              protected authService: AuthService,
+              protected router: Router)
   {
     super(formsBuilder, authService, router);
   }
