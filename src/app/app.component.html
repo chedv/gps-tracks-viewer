@@ -1,4 +1,4 @@
-<div>
+<div class="navbar">
   <a *ngIf="!isAuthenticated()" routerLink="/auth/login">Login</a>
   <a *ngIf="!isAuthenticated()" routerLink="/auth/register">Register</a>
   <a *ngIf="isAuthenticated()" routerLink="" (click)="logout()">Logout</a>
