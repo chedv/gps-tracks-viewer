@@ -12,14 +12,14 @@ export class BaseAuthComponent {
   private actions: { [name: string]: (params: object) => Observable<Response> };
 
   constructor(formsBuilder: IAuthFormsBuilder,
-              private authService: AuthService,
+              authService: AuthService,
               private router: Router)
   {
     this.form = formsBuilder.buildForm();
     this.errors = null;
     this.actions = {
-      login: this.authService.login,
-      register: this.authService.register
+      login: (params: object) => authService.login(params),
+      register: (params: object) => authService.register(params)
     };
   }
 
@@ -35,7 +35,6 @@ export class BaseAuthComponent {
     const result = this.form.value;
     this.actions[action](result)
       .subscribe(response => {
-        console.log(response);
         if (!response.error) {
           this.router.navigate(['']);
         }
